@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  kba:
+    image: "git.risa.gov.rw:5050/risa/risa-gcino-projects/risa-innovation-division-projects/mbaza-chatbot/mbaza-chatbot-rasa-implementation/mbaza-chatbot-rasa-knowledge-base-abstraction-layer/development/kba:1.0.22-latest"
+    environment:
+      - INTENT_DB_HOST=${INTENT_DB_HOST}
+      - INTENT_DB_PORT=5432
+      - INTENT_DB_USERNAME=${INTENT_DB_USERNAME}
+      - INTENT_DB_PASSWORD=${INTENT_DB_PASSWOR}
+      - INTENT_DB_NAME=${INTENT_DB_NAME}
+      - ZAMMAD_DB_HOST=${ZAMMAD_DB_HOST}
+      - ZAMMAD_DB_PORT=5432
+      - ZAMMAD_DB_USERNAME=${ZAMMAD_DB_USERNAME}
+      - ZAMMAD_DB_PASSWORD=${ZAMMAD_DB_PASSWORD}
+      - ZAMMAD_DB_NAME=${ZAMMAD_DB_NAME}
+      - PORT=3000
+      - MODE=DEV
+      - RUN_MIGRATIONS=true
+      - DEFAULT_LOCATION=rwanda
+      - ENABLE_SYNC=false
+    ports:
+      - "3000:3000"
+    networks:
+      - public
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  zammad_sync_cron:
+    image: "git.risa.gov.rw:5050/risa/risa-gcino-projects/risa-innovation-division-projects/mbaza-chatbot/mbaza-chatbot-rasa-implementation/mbaza-chatbot-rasa-knowledge-base-abstraction-layer/development/kba:1.0.22-latest"
+    environment:
+      - INTENT_DB_HOST=${INTENT_DB_HOST}
+      - INTENT_DB_PORT=5432
+      - INTENT_DB_USERNAME=${INTENT_DB_USERNAME}
+      - INTENT_DB_PASSWORD=${INTENT_DB_PASSWOR}
+      - INTENT_DB_NAME=${INTENT_DB_NAME}
+      - ZAMMAD_DB_HOST=${ZAMMAD_DB_HOST}
+      - ZAMMAD_DB_PORT=5432
+      - ZAMMAD_DB_USERNAME=${ZAMMAD_DB_USERNAME}
+      - ZAMMAD_DB_PASSWORD=${ZAMMAD_DB_PASSWORD}
+      - ZAMMAD_DB_NAME=${ZAMMAD_DB_NAME}
+      - PORT=3000
+      - MODE=DEV
+      - RUN_MIGRATIONS=true
+      - DEFAULT_LOCATION=rwanda
+      - ENABLE_SYNC=true
+      - SYNC_SCHEDULE=0 */30 * * * *
+    ports:
+      - "3001:3000"
+    networks:
+      - public
+    deploy:
+      mode: replicated
+      replicas: 1
+  
+
+networks:
+ public:
+    external:
+      name: public
