@@ -7,11 +7,11 @@
 ### Steps for Installation ###
 1. clone the project: 
 ```
-$ git clone https://git.risa.gov.rw/risa/risa-gcino-projects/risa-innovation-division-projects/mbaza-chatbot/mbaza-chatbot-rasa-implementation/mbaza-chatbot-rasa-knowledge-base-abstraction-layer.git
+$ git clone https://github.com/MBAZA-NLP/mbaza-chatbot-knowledge-abstraction-layer.git
 ```
 2. Go to inside the created folder: 
 ```
-$ cd mbaza-chatbot-rasa-knowledge-base-abstraction-layer/
+$ cd mbaza-chatbot-knowledge-base-abstraction-layer/
 ```
 3. Install node modules: 
 ```
